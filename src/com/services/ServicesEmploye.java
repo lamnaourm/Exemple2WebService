@@ -4,7 +4,9 @@ package com.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -15,11 +17,9 @@ import com.models.Employe;
 @Path("/employes")
 public class ServicesEmploye {
 	
-	List<Employe> employes;
+	static List<Employe> employes;
 	
-	public ServicesEmploye() {
-		init_data();
-	}
+
 	
 	@GET
 	@Path("/allemps")
@@ -38,9 +38,16 @@ public class ServicesEmploye {
 		return null;
 	}
 	
+	@POST
+	@Path("/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void AddEmploye(Employe e) {
+		employes.add(e);
+	}
 	
 	
-	public void init_data() {
+	
+	static {
 		employes = new ArrayList<>();
 		employes.add(new Employe(1,"Zaid",2300));
 		employes.add(new Employe(2,"Riad",4300));
